@@ -16,3 +16,4 @@
 
 * [工作中github上常用的轻量、无依赖的库](https://github.com/jawil/blog/issues/10)
 * [UI设计稿全自动切图和标注的工具推荐](https://github.com/jawil/blog/issues/11)
+* [计算机方面的免费书籍](http://bestcbooks.com/)
