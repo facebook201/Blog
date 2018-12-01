@@ -10,7 +10,7 @@
 
 #### 2018 3
 
-> 故人西辞黄鹤楼 烟花三月下扬州
+
 
 * [浏览器多进程和JavaScript单线程机制](https://github.com/facebook201/Blog/blob/master/201803/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%92%8Cjs%E7%9A%84%E5%8D%95%E7%BA%BF%E7%A8%8B%E6%9C%BA%E5%88%B6.md)
 
@@ -22,8 +22,21 @@
 
 #### 2018 4
 
-> 人间四月芳菲尽 
+
 
 * [svg圆形进度条和requestAnimationFrame](https://github.com/facebook201/Blog/blob/master/201804/svg%E5%9C%86%E5%BD%A2%E8%BF%9B%E5%BA%A6%E6%9D%A1%E5%92%8CrequestAnimationFrame.md)
 * [Node.js 开始之路]()
 
+
+
+
+
+#### 2018 10 
+
+* Ramda  函数式编程
+
+* JS 中的高阶函数
+
+* 前端面试
+
+* 
