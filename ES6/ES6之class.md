@@ -1,92 +1,92 @@
-### Class
+### ES6 之 Class
 
-ES6
+es6的class 只是一个语法糖。 绝大部分功能ES5都可以做。新的class写法只是让原型的写法更加清晰。
 
 ```javascript
-// ES6
-class Person {
-    constructor(name) {
-        this.name = name;
-    }
-  	hello() {
-        return 'hello' + this.name;
-    }
-}
-
-var p1 = new Person('lisi');
-p1.hello();
-
-// ES5
-function Person(name) {
+// ES5 传统的构造函数
+function Person(name, age) {
     this.name = name;
+    this.age = age;
 }
-Person.prototype.hello = function() {
-    return 'hello' + this.name;
-}
-var p2 = new Person('zhansgan');
 
-```
+// 如果要扩展原型方法和属性
+Person.prototype.getName; // 等等
 
-ES5的构造函数对应着ES6的Person类的constructor 方法。
 
-**类内部的所有方法都是不可枚举的 在ES5是可枚举的**
-
-```javascript
 // ES6
-Object.keys(Person.prototype); // []
-Object.getOwnPropertyNames(Person.prototype); // ["constructor", "hello"]
-
-// ES5
-Object.keys(Person.prototype); // ['sayHello']
-Object.getOwnPropertyNames(Person.prototype); // ["constructor", "sayHello"]
-```
-
-
-
-
-
-#### 静态方法
-
-所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上 static 关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。
-
-```javascript
 class Person {
-    // 静态属性
-    static name = 'lisi'
-    static hello() {
-        return 'hello';
+    // 构造方法
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    // 原型方法
+    toString() {
+        // 返回name
+        return this.name;
     }
 }
+```
 
-Person.hello() // 'hello'
+ES6里面也保存了prototype属性。类的所有方法都定义在prototype属性上面。prototype对象的constructor属性。 直接指向类本身。 跟ES5 也是一致的。
 
-var p = new Person();
-p.hello(); // TypeError: p.hello is not a function
+```javascript
+Person.prototype.constructor === Person; // true
+```
 
-// ES5
-function Person() {}
+**ES6的类的方式 内部定义的方法都是不可枚举的** 如果是定义在定义在类的prototype上面就是可枚举的。
 
-Person.hello = function() {
-    return 'hello';
-};
+* 可以通过Object.keys(Person.prototype) 返回一个数组 如果可以枚举的属性 就会添加到数组
+* 可以通过Object.getOwnPropertyDescriptor(Person.prototype, 'getName'); 可以取得给定属性的描述符。这个方法接收两个参数：属性所在的对象和要读取其描述符的属性名称。返回值是一个对象，如果是访问器属性，这个对象的属性有configurable、enumerable、get 和set；如果是数据属性，这个对象的属性有configurable、enumerable、writable 和value 
 
-Person.hello(); // 'hello'
+```javascript
+// 得到一个数组 返回的元素都是原型上的属性和方法 
+// 这种方法可以知道哪些是可以枚举的
+var ProtoArrayMethods = Object.keys(Person.prototype);
 
-var p = new Person();
-p.hello(); // TypeError: p.hello is not a function
+// 也可以通过 getOwnPropertyDescriptor
+// 这样是具体到某一个属性 是否可以枚举
+var ProtoArrayMethods = Object.getOwnPropertyDescriptor(Person.prototype, 'attribute');
 ```
 
 
 
-### new 调用
-
-类必须使用new调用 否则会报 跟普通构造函数的一个主要区别。后者不使用new也可以
 
 
+##### Class 继承
+
+Class 继承可以通过 extends 关键字实现继承。 
+
+```javascript
+class Point {
+}
+// 本质上class 是一种语法糖。
+typeof Point; // 'function'
+Point === Point.prototype.constructor;
+class ColorPoint extends Point {
+	constructor(x, y, color) {
+		// 调用父类的constructor
+		super(x, y);
+		this.color = color;
+	}
+    toString() {
+        return this.color + ' ' + super.toString(); // 调用父类的toString 
+    }
+}
+let cp = new ColorPoint();
+```
+
+constructor 方法和 toString 方法中。 出现了super关键字。 它在这里表示父类的构造函数 用来新建父类的this对象。**子类必须在constructor 方法中调用super方法。否则新建实例时会报错。这是因为子类没有自己的this对象。而是继承父类的this对象。** 父类的静态方法 也会被子类继承
 
 
 
-#### class的继承
+> 2 Object.getPropertyOf()
+
+该方法可以用来从子类上获取父类。
+
+```javascript
+Object.getPropertyOf(ColorPoint) === Point; // true 也可以判断一个类是否继承另一个类
+```
 
 
 
