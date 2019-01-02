@@ -4,10 +4,14 @@
  * @param {i 数组的索引}
  * @param {j 数组的索引}
  */
+
+function checkArray(array) {
+  // 如果无参数 或者只有两个值 就不排序
+  if (!array || array.length <= 2) return
+}
+
 function swap(arr, i, j) {
-    var temp = arr[j];
-    arr[j] = arr[i];
-    arr[i] = temp;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
 }
 
 // 测试数组
@@ -17,17 +21,18 @@ var arr = [1, 3, 12, 187, 21, 2, 45, 3, 68, 13, 45, 90, 12, 123, 3, 12];
  * 冒泡排序 稳定的排序
  */
 function bubbleSort(arr) {
-    var len = arr.length,
-        for (var i = 0; i < len - 1; i++) {
-            for (var j = 0; j < len - 1 - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    swap(arr, j, j + 1);
-                }
-            }
-        }
-    return arr;
+  let len = arr.length;
+  for (var i = 0; i < len - 1; i++) {
+    for (var j = 0; j < len - 1 - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+      }
+    }
+  }
+  return arr;
 }
 
+console.log(bubbleSort(arr));
 
 /**
  * 选择排序
