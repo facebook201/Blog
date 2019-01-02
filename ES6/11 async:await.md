@@ -1,60 +1,81 @@
-### async 函数
+#### 基本用法
+
+async函数返回一个promise对象。可以使用then方法添加回调函数。当函数执行的时候 一旦遇到await就会先返回 等到异步操作完成 再接着执行函数体内后面的语句。
 
 
-
-> async 函数的返回值是Promise对象。
-
-
-
-async 函数的返回值是Promise对象。 可以用then方法指定下一步操作。
 
 ```javascript
-var sleep = function(time) {
+// 这个函数返回一个promise对象
+function timeout(ms) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve();    
-    }, time);  
+    setTimeout(resolve, ms);
   });
 }
 
-var start = async function() {
-  console.log('start');
-  await sleep(3000); // 过了三秒 才会执行end
-  console.log('end');
+async function asyncPrint(value, ms) {
+  // 要先等待timeout执行完毕 才能继续执行下面的代码
+  await timeout(ms);
+  console.log(value);
 }
+
+asyncPrint(1, 200); // 200m函数之后才会输出value
 ```
 
-* async 表示一个 async函数 表示异步的函数、await 只能用在这个函数里面
-* await表示这里 **等待promise返回结果了，再继续执行**
-* await 后面跟着的 **应该是一个promise对象**
 
 
-
-#### 获得返回值
-
-await 等待的虽然是promise对象 但是不用写then() 可以直接得到返回值
-
-
+**async关键字 表明该函数内部有异步操作。调用函数时 会立即返回一个promise对象。**
 
 ```javascript
-var sleep = function (time) {
-    return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            // 返回 ‘ok’
-            resolve('ok');
-        }, time);
-    })
-};
+function timeout(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms * 1000)
+    });
+}
 
-var start = async function () {
-    let result = await sleep(3000);
-    console.log(result); // 收到 ‘ok’
-};
+async function asyncPrint(value, ms) {
+    await timeout(1);
+    console.log(value);
+}
+
+asyncPrint('hello', 1); // 1 秒之后输出
+
+// 根据这个例子我们就可以写出之前promise 红绿蓝等交替亮的代码
+// 红灯三秒亮一次，绿灯一秒亮一次，黄灯2秒亮一次；如何让三个灯不断交替重复亮灯？
+
+function red() {
+  console.log('red');
+}
+
+function blue() {
+  console.log('blue');
+}
+
+function green() {
+  console.log('green');
+}
+
+function asyncAwait(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms * 1000);
+  });
+}
+
+async function myQueue() {
+  await asyncAwait(3);
+  red();
+  await asyncAwait(1);
+  blue()
+  await asyncAwait(2);
+  green();
+
+  myQueue();  
+}
+myQueue();
 ```
 
 
 
-#### 捕捉错误	
+#### 错误处理
 
 ```javascript
 var sleep = function (time) {
@@ -79,14 +100,11 @@ var start = async function () {
 };
 ```
 
-
-
 #### 怎么拿到异步的值
 
 > 错误尝试 无法正确拿到值
 
 ```javascript
-
 function getSomething() {
   var r = 0;
   setTimeout(function(){
@@ -107,7 +125,7 @@ compute(); // 0
 
 ### 解决方案
 
->  回调函数  同步 > 异步 > 回调
+> 回调函数  同步 > 异步 > 回调
 
 ```javascript
 function getSomething(cb) {
@@ -153,7 +171,6 @@ getSomething().then(compute);
 > async await
 
 ```javascript
-
 function getSomething(){
   var r = 0;
   return new Promise((resolve) => {

@@ -127,6 +127,33 @@ console.log('which one is called first?'); // 1
 
 
 
+#### Promise.all() 用于promise实例
+
+```javascript
+const p = Promise.all([p1, p2, p3]);
+```
+
+
+
+p的状态由p1、p2、p3 决定。
+
+* 只有三个的状态都是 fulfilled p才是fulfilled
+* 如果有一个是reject p就是rejected
+
+
+
+#### Promise.resolve
+
+将现有的对象转为promise对象，Promise.reslove方法就可以做到
+
+```javascript
+Promise.resovle('foo');
+
+new Promise(resolve => resolve('foo'));
+```
+
+
+
 
 
 

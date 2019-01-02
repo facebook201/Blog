@@ -51,6 +51,40 @@ var ProtoArrayMethods = Object.getOwnPropertyDescriptor(Person.prototype, 'attri
 
 
 
+#### 实例属性
+
+```javascript
+class Person {
+    // 实例属性
+    _count = 0;
+	// 静态属性
+	static name = 'lisi'; 
+}
+```
+
+实例属性可以写在最上面，不一定要写在constructor里面。
+
+
+
+#### 私有方法和私有属性
+
+```javascript
+class Weight {
+	// 公有方法
+    foo(baz) {
+        this._bar(baz);
+    }
+    // 私有方法
+    _bar(baz) {
+        return this.sn = baz;
+    }
+}
+```
+
+
+
+_bar 前面的下划线表示一个限于内部使用的私有方法。
+
 
 
 ##### Class 继承
@@ -88,17 +122,7 @@ constructor 方法和 toString 方法中。 出现了super关键字。 它在这
 Object.getPropertyOf(ColorPoint) === Point; // true 也可以判断一个类是否继承另一个类
 ```
 
-
-
-
-
-
-
-
-
-
-
-
+class 通过extends关键字实现继承。比ES5的通过修改原型更加清晰
 
 
 

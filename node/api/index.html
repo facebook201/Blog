@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="root">
+    看看
+  </div>
+  <button onClick="success()"> 按钮 </button>
+<script>
+
+  function success() {
+    const http = new XMLHttpRequest();
+
+    http.onload = function() {
+      if (http.status == 200 && http.readyState == 4) {
+        const msg = http.responseText;
+        let box = document.getElementById('root');
+        console.log(JSON.parse(msg));
+        box.innerHTML = JSON.parse(msg).name;
+      }
+    };
+
+    http.open('GET', '/data');
+    http.send();
+  }
+
+</script>
+</body>
+</html>
