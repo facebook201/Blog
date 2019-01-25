@@ -1,4 +1,4 @@
-/**
+﻿/**
  *交换元素
  * @param {arr 操作的数组}
  * @param {i 数组的索引}
@@ -129,4 +129,47 @@ function binarySearch(data, arr) {
         }
     }
     return -1;
+}
+
+
+/**
+ * 洗牌算法 随机排序
+ */
+// 这是一种错误的伪随机
+function shuffle(arr) {
+    return arr.sort(() => {
+        return Math.random() - 0.5;
+    })
+}
+
+function shuffle(arr) {
+    if (arr.length <= 1) return arr;
+    for (let i = arr.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+    }
+    return arr;
+}
+
+/**
+ * 快拍
+ * @param {} arr 
+ */
+
+function quickSort(arr) {
+    if (arr.length <= 1) return arr;
+    var pivotIndex = Math.floor(arr.length / 2);
+    var pivot = arr.splice(pivotIndex, 1)[0];
+    console.log(pivot);
+
+    var left = [];
+    var right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
+    }
+    return quickSort(left).concat([pivot], quickSort(right));
 }
