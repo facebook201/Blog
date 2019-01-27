@@ -152,7 +152,7 @@ function shuffle(arr) {
 }
 
 /**
- * 快拍
+ * 快排
  * @param {} arr 
  */
 
@@ -160,7 +160,6 @@ function quickSort(arr) {
     if (arr.length <= 1) return arr;
     var pivotIndex = Math.floor(arr.length / 2);
     var pivot = arr.splice(pivotIndex, 1)[0];
-    console.log(pivot);
 
     var left = [];
     var right = [];
@@ -172,4 +171,43 @@ function quickSort(arr) {
         }
     }
     return quickSort(left).concat([pivot], quickSort(right));
+}
+
+/**
+ * 原地快排
+ * 基准的取值规则是取最左边的元素，黄色代表当前的基准，绿色代表小于基准的元素，紫色代表大于基准的元素。
+ * 我们会发现，绿色的元素会紧挨在基准的右边，紫色的元素会被移到后面，然后交换基准和绿色的最后一个元素，
+ * 此时，基准处于正确的位置，即前面的元素都小于基准值，后面的元素都大于基准值。然后再对前面的和后面的多个元素取基准，做排序。
+ */
+
+function quickSort(arr) {
+
+	function swap(arr, a, b){ 
+		[arr[a], arr[b]] = [arr[b], arr[a]];
+	}
+		
+	function partition(arr, left, right) {
+		var pivot = arr[left];
+		var storeIndex = left; // 索引 开始是最左边的
+
+		for (let i = left + 1; i <= right; i++) {
+			if (arr[i] < pivot) {
+				swap(arr, i, ++storeIndex);
+			}
+		}
+
+		swap(arr, left, storeIndex);
+	}
+
+	function sort(arr, left, right) {
+		if (left < right) {
+			var storeIndex = partition(arr, left, right);
+			sort(arr, left, storeIndex - 1);
+			sort(arr, storeIndex + 1, right);
+		}
+	}
+
+	sort(arr, 0, arr.length - 1);
+
+	return arr;
 }
