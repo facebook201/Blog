@@ -32,8 +32,6 @@ function bubbleSort(arr) {
   return arr;
 }
 
-console.log(bubbleSort(arr));
-
 /**
  * 选择排序
  */
