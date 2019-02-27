@@ -1,4 +1,4 @@
-/**
+﻿/**
  *交换元素
  * @param {arr 操作的数组}
  * @param {i 数组的索引}
@@ -127,4 +127,85 @@ function binarySearch(data, arr) {
         }
     }
     return -1;
+}
+
+
+/**
+ * 洗牌算法 随机排序
+ */
+// 这是一种错误的伪随机
+function shuffle(arr) {
+    return arr.sort(() => {
+        return Math.random() - 0.5;
+    })
+}
+
+function shuffle(arr) {
+    if (arr.length <= 1) return arr;
+    for (let i = arr.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+    }
+    return arr;
+}
+
+/**
+ * 快排
+ * @param {} arr 
+ */
+
+function quickSort(arr) {
+    if (arr.length <= 1) return arr;
+    var pivotIndex = Math.floor(arr.length / 2);
+    var pivot = arr.splice(pivotIndex, 1)[0];
+
+    var left = [];
+    var right = [];
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
+    }
+    return quickSort(left).concat([pivot], quickSort(right));
+}
+
+/**
+ * 原地快排
+ * 基准的取值规则是取最左边的元素，黄色代表当前的基准，绿色代表小于基准的元素，紫色代表大于基准的元素。
+ * 我们会发现，绿色的元素会紧挨在基准的右边，紫色的元素会被移到后面，然后交换基准和绿色的最后一个元素，
+ * 此时，基准处于正确的位置，即前面的元素都小于基准值，后面的元素都大于基准值。然后再对前面的和后面的多个元素取基准，做排序。
+ */
+
+function quickSort(arr) {
+
+	function swap(arr, a, b){ 
+		[arr[a], arr[b]] = [arr[b], arr[a]];
+	}
+		
+	function partition(arr, left, right) {
+		var pivot = arr[left];
+		var storeIndex = left; // 索引 开始是最左边的
+
+		for (let i = left + 1; i <= right; i++) {
+			if (arr[i] < pivot) {
+				swap(arr, i, ++storeIndex);
+			}
+		}
+
+		swap(arr, left, storeIndex);
+	}
+
+	function sort(arr, left, right) {
+		if (left < right) {
+			var storeIndex = partition(arr, left, right);
+			sort(arr, left, storeIndex - 1);
+			sort(arr, storeIndex + 1, right);
+		}
+	}
+
+	sort(arr, 0, arr.length - 1);
+
+	return arr;
 }
