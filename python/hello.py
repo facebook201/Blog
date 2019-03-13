@@ -1,3 +1,11 @@
+  # -*- coding: utf-8 -*
 
-string = 'abcedf';
-print(string[0: -2]); #1bcd
+# 是一个注释
+
+a, b = 0, 1
+while(b < 100):
+  a, b = b, a + b
+
+print(a, b);
+
+
