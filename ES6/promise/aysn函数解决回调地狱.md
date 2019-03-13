@@ -14,17 +14,27 @@
 
 先看看async函数返回什么值。
 
-
-
 async 函数返回的是一个promise对象，所以在最外层不能用await获取其返回值情况下，
 
+```javascript
+async function f() {
+  return 'hello world';
+}
+
+f().then(v => console.log(v)); // hello world
+```
 
 
 
+#### promise 状态变化
+
+`async`函数返回的 Promise 对象，必须等到内部所有`await`命令后面的 Promise 对象执行完，才会发生状态改变，除非遇到`return`语句或者抛出错误。也就是说，只有`async`函数内部的异步操作执行完，才会执行`then`方法指定的回调函数。
 
 
 
+#### await 
 
+await后面是一个promise对象，如果不是 就返回对应的值。
 
 
 

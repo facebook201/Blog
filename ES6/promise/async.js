@@ -13,9 +13,7 @@ function getInfo() {
     });
 }
 
-
 // Promise 
-
 function getInfoByPromise() {
     getInfo().then(res => {
         console.log(res.data);

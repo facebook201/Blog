@@ -25,9 +25,19 @@ const towSum = function(nums = [], target) {
   }
 };
 
-const ret = towSum(sums, target);
-console.log(ret);
+// const ret = towSum(sums, target);
 
 
+
+/** 
+ * author syo
+ * @param {string} s
+ * @return {number}
+ */
+
+const lengthOfLongestSubstring = function(s) {
+    let ret = [];
+    
+};
 
 
