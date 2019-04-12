@@ -1,11 +1,16 @@
-  # -*- coding: utf-8 -*
-
+# -*- coding: utf-8 -*
 # 是一个注释
 
-a, b = 0, 1
-while(b < 100):
-  a, b = b, a + b
+class Complex:
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
 
-print(a, b);
+  def print_age(self):
+    print(self.age)
 
+c1 = Complex('张三', 12)
 
+print(c1.name)
+
+c1.print_age()
